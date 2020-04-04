@@ -1,11 +1,12 @@
-import React , { useState } from 'react';
+import React from 'react';
 import './App.css';
+import MAP from './components/map';
+
 
 function App() {
-  const [state , setState] = useState(0)
   return (
-    <div className="App">
-        <button onClick = {()=>setState()}> click </button>
+    <div>
+      <MAP />
     </div>
   );
 }
