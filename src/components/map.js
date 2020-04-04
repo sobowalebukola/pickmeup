@@ -9,8 +9,13 @@ LOCATE();
 
 const MapContainer = (props) => {
   const [show, setShow] = useState(false);
+  const [ place , setPlace ] = useState({
+    lat : 9.077751 ,
+    lng: 8.6774567
+  })
   const finder = () => {
     setShow(!show);
+    setPlace({ lat: window.latitude , lng : window.longitude})
   };
   if (!props.google) {
     return <div> <Dots /> </div>;
@@ -24,7 +29,7 @@ const MapContainer = (props) => {
         }}
         google={props.google}
         zoom={6}
-        initialCenter={{ lat: 9.077751, lng: 8.6774567 }}
+        initialCenter={{ lat: window.latitude, lng: window.longitude }}
       >
         {show && (
           <Marker
