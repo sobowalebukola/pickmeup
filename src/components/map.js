@@ -28,7 +28,7 @@ const MapContainer = (props) => {
           minHeight: "200px",
         }}
         google={props.google}
-        zoom={6}
+        zoom={16}
         initialCenter={{ lat: window.latitude, lng: window.longitude }}
       >
         {show && (
