@@ -1,21 +1,27 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import { Map, Marker, GoogleApiWrapper } from "google-maps-react";
 import FindMe from "../Button/Index";
-import { LOCATE } from "./getLocation";
 import { api_key } from "../constants/api";
 import { Dots } from 'react-activity';
 
-LOCATE();
 
 const MapContainer = (props) => {
   const [show, setShow] = useState(false);
-  const [ place , setPlace ] = useState({
-    lat : 9.077751 ,
-    lng: 8.6774567
-  })
+  useEffect(() => {
+    (function LOCATE(){
+      var latitude ;
+      var longitude;
+      function success(position) {
+       latitude  = position.coords.latitude;
+       longitude = position.coords.longitude;
+       window.latitude = latitude;
+       window.longitude = longitude;
+  }
+  navigator.geolocation.getCurrentPosition(success);
+  })()
+  }, []);
   const finder = () => {
     setShow(!show);
-    setPlace({ lat: window.latitude , lng : window.longitude})
   };
   if (!props.google) {
     return <div> <Dots /> </div>;
@@ -28,7 +34,7 @@ const MapContainer = (props) => {
           minHeight: "200px",
         }}
         google={props.google}
-        zoom={6}
+        zoom={16}
         initialCenter={{ lat: window.latitude, lng: window.longitude }}
       >
         {show && (
